@@ -4,6 +4,7 @@ public class UserAccount {
     private String email;
     private String name;
     private String password;
+    private String teleNum;
     private String idToken;
 
     public void setIdToken(String idToken) {
@@ -26,6 +27,8 @@ public class UserAccount {
 
     public String getPassword() { return password;}
 
+    public String getTeleNum() { return teleNum;}
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -36,5 +39,14 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setTeleNum(String teleNum) {this.teleNum = teleNum;}
+
+    public UserAccount(String email, String name, String teleNum, String idToken) {
+        this.email = email;
+        this.name = name;
+        this.teleNum = teleNum;
+        this.idToken = idToken;
     }
 }
