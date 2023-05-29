@@ -3,6 +3,7 @@ package com.example.helperapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,6 +12,7 @@ import com.example.helperapp.Fragment.Fragment2;
 import com.example.helperapp.Fragment.Fragment3;
 import com.example.helperapp.Fragment.Fragment4;
 import com.example.helperapp.Fragment.Fragment5;
+import com.example.helperapp.LoginAndRegister.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,8 +43,14 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new Fragment2()).commit();
                         break;
                     case R.id.item_fragment3:
+                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                        startActivity(intent);
+                        finish();
+                        /*
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new Fragment3()).commit();
                         break;
+
+                         */
                     case R.id.item_fragment4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new Fragment4()).commit();
                         break;
