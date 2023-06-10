@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     // DatabaseReference 인스턴스를 선언, Realtime Database에 접근하기 위한 참조(reference)를 생성하는 데 사용
     private DatabaseReference mDatabaseReference;
     // 입력 받을 이메일과 비밀번호 인스턴스 선언
-    private EditText et_email, et_pwd;
+    private EditText et_email, et_pwd, et_name, et_teleNum;
     // 버튼 인스턴스 선언
     private Button btn_register;
 
@@ -43,11 +43,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         et_email = findViewById(R.id.et_email);
         et_pwd = findViewById(R.id.et_pwd);
+        et_name = findViewById(R.id.et_name);
+        et_teleNum = findViewById(R.id.et_telenum);
         btn_register = findViewById(R.id.btn_register);
 
         btn_register.setOnClickListener(v -> {
             String strEmail = et_email.getText().toString();
             String strPwd = et_pwd.getText().toString();
+            String strName = et_name.getText().toString();
+            String strTeleNum = et_teleNum.getText().toString();
 
             // Firebase 인증 기능을 사용하여 사용자를 생성, 입력한 이메일 주소와 비밀번호를 사용하여 회원가입을 시도
             //createUserWithEmailAndPassword() 메서드의 작업이 완료될 때 실행되는 리스너를 추가
@@ -64,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
                         // UserAccount 객체에 set 해주기
                         account.setEmail(firebaseUser.getEmail());
                         account.setPassword(strPwd);
+                        account.setName(strName);
+                        account.setTeleNum(strTeleNum);
                         account.setIdToken(firebaseUser.getUid());
 
                         // DB에 저장

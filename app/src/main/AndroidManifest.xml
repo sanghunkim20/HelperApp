@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,6 +28,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD1qW6-Hg2Acmx98kw5WYFF-ivgc7H9NAc" />
 
+        <!-- Firebase 관련 설정 -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
         <activity
             android:name=".LoginAndRegister.LoginActivity"
             android:exported="true">
@@ -43,8 +49,18 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginAndRegister.RegisterActivity" />
         <activity android:name=".MyinfoActivity"/>
-        <activity android:name=".SettingActivity"/>
+        <activity android:name=".BoardActivity"/>
         <activity android:name=".NotificationActivity"/>
+
+        <!-- FirebaseMessagingService 구현 클래스를 지정합니다. -->
+        <service
+            android:name=".Notification.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
