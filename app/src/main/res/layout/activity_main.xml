@@ -53,7 +53,7 @@
             android:id="@+id/settingButton"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:src="@drawable/setting"
+            android:src="@drawable/plus"
             android:elevation="8dp"
             android:background="@drawable/button_background" />
 
