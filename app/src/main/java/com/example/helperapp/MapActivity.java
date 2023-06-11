@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -38,13 +39,38 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback{
+
+    //파이어베이스 로그인 확인
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+    private ChildEventListener mChild;
+
+
+    //private ListView listView;
+    //private ArrayAdapter<String> adapter;
+    List<String> Array = new ArrayList<String>();
+
 
 
     private GoogleMap mMap;
@@ -77,7 +103,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
 
-    Button helpbtn;
+    private Button helpbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +116,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mLayout = findViewById(R.id.layout_map);
 
+        //데이터베이스
         helpbtn = findViewById(R.id.helpbtn);
 
+        initDatabase();
+
+        mReference = mDatabase.getReference("message"); // 변경값을 확인할 child 이름
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                    // child 내에 있는 데이터만큼 반복합니다.
+                    String msg2 = messageData.getValue().toString();
+                    Array.add(msg2);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        
+        
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL_MS)
@@ -338,25 +386,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
 
-        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
+        LatLng currentLatLng = new LatLng(36.6259, 127.4543);
         helpbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String markerTitle = "제목";
-                String markerSnippet = "도움이 필요한 내용";
+                //databaseReference.child("message").push().setValue("2");
+                
+                String text1 = Array.get(0).toString();
 
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(currentLatLng);
-                markerOptions.title(markerTitle);
-                markerOptions.snippet(markerSnippet);
+                markerOptions.title(text1);
+                markerOptions.snippet("도움이 필요한 내용");
                 markerOptions.draggable(true);
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 currentMarker = mMap.addMarker(markerOptions);
-
             }
         });
-
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
@@ -444,5 +490,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
+    private void initDatabase() {
+        mDatabase = FirebaseDatabase.getInstance();
+
+        mReference = mDatabase.getReference("log");
+        mReference.child("log").setValue("check");
+
+        mChild = new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mReference.addChildEventListener(mChild);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mReference.removeEventListener(mChild);
+    }
 }
 
