@@ -30,9 +30,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         UserAccount user = userList.get(position);
-        holder.tvEmail.setText("이메일: " + user.getEmail());
-        holder.tvName.setText("이름: " + user.getName());
-        holder.tvTeleNum.setText("전화번호: " + user.getTeleNum());
+        holder.tvEmail.setText("" + user.getEmail());
+        holder.tvName.setText("" + user.getName());
+        holder.tvTeleNum.setText("전화번호 : " + user.getTeleNum());
     }
 
     @Override

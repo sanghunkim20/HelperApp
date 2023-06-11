@@ -5,6 +5,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -19,8 +22,11 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.helperapp.Board.Board;
+import com.example.helperapp.ShopAndMenuList.ShopListActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -43,8 +49,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback{
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private Button helpbtn;
 
     private GoogleMap mMap;
     private Marker currentMarker = null;
@@ -59,14 +66,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     boolean needRequest = false;
 
-
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 
-
     Location mCurrentLocatiion;
     LatLng currentPosition;
-
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
@@ -87,23 +91,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mLayout = findViewById(R.id.layout_map);
 
+        //helpbtn = findViewById(R.id.helpbtn);
+
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL_MS)
                 .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
 
-
-        LocationSettingsRequest.Builder builder =
-                new LocationSettingsRequest.Builder();
-
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
-
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag("mapFragment");
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.map_container, mapFragment, "mapFragment");
+            fragmentTransaction.commitNow();
+        }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -194,7 +201,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 currentPosition
                         = new LatLng(location.getLatitude(), location.getLongitude());
-
 
                 String markerTitle = getCurrentAddress(currentPosition);
                 String markerSnippet = "위도:" + String.valueOf(location.getLatitude())
@@ -332,45 +338,82 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
 
-
-        if (currentMarker != null) currentMarker.remove();
-
-
         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(currentLatLng);
-        markerOptions.title(markerTitle);
-        markerOptions.snippet(markerSnippet);
-        markerOptions.draggable(true);
-
-
-        currentMarker = mMap.addMarker(markerOptions);
+        //LatLng currentLatLng = new LatLng(36.628269404199045, 127.45944714118231);
+        /*
+        helpbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(currentLatLng);
+                markerOptions.title("제목 : 짐 옮겨 주실분 구합니다.");
+                markerOptions.snippet("작성자 : 김승빈\n" +
+                                      "전화번호 : 010-5492-1239");
+                markerOptions.draggable(true);
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                currentMarker = mMap.addMarker(markerOptions);
+            }
+        });
+        */
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
 
-    }
+        Intent intent = new Intent(this, ShopListActivity.class);
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDrag(@NonNull Marker marker) {
+                startActivity(intent);
+            }
 
+            @Override
+            public void onMarkerDragEnd(@NonNull Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragStart(@NonNull Marker marker) {
+
+            }
+        });
+    }
 
     public void setDefaultLocation() {
 
 
         //디폴트 위치, Seoul
         LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
-        String markerTitle = "위치정보 가져올 수 없음";
-        String markerSnippet = "위치 퍼미션과 GPS 활성 요부 확인하세요";
 
-
-        if (currentMarker != null) currentMarker.remove();
-
+        //마커
+        LatLng MissionLatLng = new LatLng(36.628269404199045, 127.45944714118231);
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(DEFAULT_LOCATION);
-        markerOptions.title(markerTitle);
-        markerOptions.snippet(markerSnippet);
+        markerOptions.position(MissionLatLng);
+        markerOptions.title("제목 : 짐 옮겨 주실분 구합니다.");
+        markerOptions.snippet("작성자 : 김승빈");
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        currentMarker = mMap.addMarker(markerOptions);
+        mMap.addMarker(markerOptions);
+
+        //마커2
+        LatLng MissionLatLng2 = new LatLng(36.62764947164606, 127.4587604957005);
+        markerOptions.position(MissionLatLng2);
+        markerOptions.title("제목 : 학식 받아주실 분 구합니다.");
+        markerOptions.snippet("작성자 : 김지섭");
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(markerOptions);
+
+        //마커3
+        LatLng MissionLatLng3 = new LatLng(36.62562902775409, 127.45435534910756);
+        markerOptions.position(MissionLatLng3);
+        markerOptions.title("제목 : 길 안내 부탁드립니다.");
+        markerOptions.snippet("작성자 : 김상훈");
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(markerOptions);
+
+
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
         mMap.moveCamera(cameraUpdate);
@@ -407,7 +450,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {
 
-        if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
+        super.onRequestPermissionsResult(permsRequestCode, permissions, grandResults);
+        if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
 
@@ -424,12 +468,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
 
 
-            if ( check_result ) {
+            if (check_result) {
 
                 // 퍼미션을 허용했다면 위치 업데이트를 시작합니다.
                 startLocationUpdates();
-            }
-            else {
+            } else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
@@ -447,7 +490,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         }
                     }).show();
 
-                }else {
+                } else {
 
 
                     // "다시 묻지 않음"을 사용자가 체크하고 거부를 선택한 경우에는 설정(앱 정보)에서 퍼미션을 허용해야 앱을 사용할 수 있습니다.
