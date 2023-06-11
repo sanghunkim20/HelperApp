@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/et_namee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="글 작성"
+                android:fontFamily="@font/bo"
+                android:textSize="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:background="@color/black">
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/shop_name_textviewrr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이       름 : "
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:hint=""
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"></EditText>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/shop_name_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전화번호 : "
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_telenum"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:hint=""
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"></EditText>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/shop_name_textvieww"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="제       목 : "
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_title"
+                        android:hint=""
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"></EditText>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/shop_name_textviewwe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="내       용 : "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_content"
+                    android:hint=""
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"></EditText>
+            </LinearLayout>
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_gravity="center"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="추가하기"
+                    android:backgroundTint="@color/black"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>

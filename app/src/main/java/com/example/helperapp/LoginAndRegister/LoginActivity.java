@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     // 각각의 텍스트, 버튼 인스턴스 선언
     private EditText et_email, et_pwd;
     private Button btn_login;
-    private Button btn_register_1;
+    private TextView btn_register_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
