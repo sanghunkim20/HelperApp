@@ -1,132 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".BoardActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="게시글 작성"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/et_namee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="글 작성"
-                android:fontFamily="@font/bo"
-                android:textSize="35dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-            <LinearLayout
-                android:layout_width="170dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:background="@color/black">
-            </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="55dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/shop_name_textviewrr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="이       름 : "
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                    <EditText
-                        android:id="@+id/et_name"
-                        android:hint=""
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="250dp"
-                        android:layout_height="50dp"></EditText>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_marginLeft="28dp"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/shop_name_textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="전화번호 : "
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                    <EditText
-                        android:id="@+id/et_telenum"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:hint=""
-                        android:layout_width="250dp"
-                        android:layout_height="50dp"></EditText>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/shop_name_textvieww"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="제       목 : "
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                    <EditText
-                        android:id="@+id/et_title"
-                        android:hint=""
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="250dp"
-                        android:layout_height="50dp"></EditText>
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/shop_name_textviewwe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내       용 : "
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/et_content"
-                    android:hint=""
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="250dp"
-                    android:layout_height="100dp"></EditText>
-            </LinearLayout>
-                <Button
-                    android:id="@+id/btn_register"
-                    android:layout_gravity="center"
-                    android:layout_width="350dp"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="추가하기"
-                    android:backgroundTint="@color/black"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="343dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132" />
+
+    <EditText
+        android:id="@+id/et_telenum"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="전화번호"
+        android:inputType="textPassword"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="349dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="제목"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289" />
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="350dp"
+        android:layout_height="151dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="내용"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.442" />
+
+    <EditText
+        android:id="@+id/et_x"
+        android:layout_width="343dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="x값"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.593" />
+
+
+    <EditText
+        android:id="@+id/et_y"
+        android:layout_width="343dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="y값"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.657" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:text="Join"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="250dp"
+        android:layout_height="1.2dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

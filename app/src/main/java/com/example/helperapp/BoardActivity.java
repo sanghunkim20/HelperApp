@@ -1,6 +1,9 @@
 package com.example.helperapp;
 
+
 import android.annotation.SuppressLint;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +26,9 @@ public class BoardActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
 
+
     @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +38,10 @@ public class BoardActivity extends AppCompatActivity {
         et_teleNum = findViewById(R.id.et_telenum);
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
-       // et_x = findViewById(R.id.et_x);
-       // et_y = findViewById(R.id.et_y);
+
+        et_x = findViewById(R.id.et_x);
+        et_y = findViewById(R.id.et_y);
+        
         btn_register = findViewById(R.id.btn_register);
 
         // 버튼 누르면 값을 저장
