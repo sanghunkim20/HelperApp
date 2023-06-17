@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
+    // 로그인 기능 (노관범)
     private FirebaseAuth mFirebaseAuth; // // FirebaseAuth 인스턴스를 선언 Firebase 인증(Authentication) 기능
     // 각각의 텍스트, 버튼 인스턴스 선언
     private EditText et_email, et_pwd;
     private Button btn_login;
-    private Button btn_register_1;
+    private TextView btn_register_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
